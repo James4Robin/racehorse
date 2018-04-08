@@ -11,7 +11,7 @@ contract RacehorseGrow is RacehorseFactory {
   }
 
   function _triggerCooldown(Racehorse storage _racehorse) internal {
-    _racehorse.readyTime = uint32(now + cooldownTime);
+    _racehorse.readyTime = uint32(now + feedCooldownTime);
   }
 
   function _isReady(Racehorse storage _racehorse) internal view returns (bool) {
@@ -20,14 +20,27 @@ contract RacehorseGrow is RacehorseFactory {
 
   function feedRacehorse(uint _racehorseId) internal onlyOwnerOf(_racehorseId) {
     Racehorse storage myRacehorse = racehorses[_racehorseId];
+    expGrow(_racehorseId, 20);
+    _triggerCooldown(myRacehorse);
+  }
+
+  function expGrow(uint _racehorseId, uint8 num) internal{
+    Racehorse storage myRacehorse = racehorses[_racehorseId];
     require(_isReady(myRacehorse));
-    if(myRacehorse.exp >= 80){
+    if(myRacehorse.exp + num >= 100){
         myRacehorse.exp = 0;
         myRacehorse.skill = myRacehorse.skill.add(1);
     }else{
-        myRacehorse.exp = myRacehorse.exp.add(20);
+        myRacehorse.exp = myRacehorse.exp.add(num);
     }
-    _triggerCooldown(myRacehorse);
+  }
+
+  function skillGrow(uint _racehorseId, uint8 num) internal {
+    if(num + racehorses[_racehorseId].skill > 100){
+      racehorses[_racehorseId].skill = 100;
+    }else{
+      racehorses[_racehorseId].skill = racehorses[_racehorseId].skill + num;
+    }
   }
 
   function _skillCheck(Racehorse storage _racehorse, uint growSkill) internal view returns (bool){

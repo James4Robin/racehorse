@@ -12,7 +12,8 @@ contract RacehorseFactory is Ownable {
 
   uint dnaDigits = 16;
   uint dnaModulus = 10 ** dnaDigits;
-  uint cooldownTime = 6 hours;
+  uint feedCooldownTime = 6 hours;
+  uint raceCooldownTime = 1 days;
 
   struct Racehorse {
     string name;
@@ -43,7 +44,7 @@ contract RacehorseFactory is Ownable {
     uint8 colorNum = uint8(randMod(16));
     uint8 maneNum = uint8(randMod(16));
     uint8 eyesNum = uint8(randMod(16));
-    uint id = racehorses.push(Racehorse(_name, _dna, 1, uint32(now + cooldownTime), 5, 5, 1, 0, 0, colorNum, maneNum, eyesNum)) - 1;
+    uint id = racehorses.push(Racehorse(_name, _dna, 1, uint32(now + feedCooldownTime), 5, 5, 1, 0, 0, colorNum, maneNum, eyesNum)) - 1;
     racehorseToOwner[id] = msg.sender;
     ownerRacehorseCount[msg.sender]++;
     emit NewRacehorse(id, _name, _dna);

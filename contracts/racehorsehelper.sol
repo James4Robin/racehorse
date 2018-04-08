@@ -12,7 +12,7 @@ contract RacehorseHelper is RacehorseGrow {
   }
 
   function withdraw() external onlyOwner {
-    owner.transfer(this.balance);
+    owner.transfer(address(this).balance);
   }
 
   function setLevelUpFee(uint _fee) external onlyOwner {
@@ -22,6 +22,11 @@ contract RacehorseHelper is RacehorseGrow {
   function levelUp(uint _racehorseId) external payable {
     require(msg.value == levelUpFee);
     racehorses[_racehorseId].level++;
+  }
+
+  function skillUp(uint _racehorseId) external payable {
+    require(msg.value == levelUpFee);
+    racehorses[_racehorseId].skill++;
   }
 
   function changeName(uint _racehorseId, string _newName) external aboveLevel(2, _racehorseId) onlyOwnerOf(_racehorseId) {
