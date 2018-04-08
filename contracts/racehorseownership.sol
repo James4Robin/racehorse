@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
 import "./racehorseracing.sol";
 import "./erc721.sol";
@@ -6,8 +6,6 @@ import "./safemath.sol";
 
 /// TODO: Replace this with natspec descriptions
 contract RacehorseOwnership is RacehorseRacing, ERC721 {
-
-  using SafeMath for uint256;
 
   mapping (uint => address) racehorseApprovals;
 
@@ -23,7 +21,7 @@ contract RacehorseOwnership is RacehorseRacing, ERC721 {
     ownerRacehorseCount[_to] = ownerRacehorseCount[_to].add(1);
     ownerRacehorseCount[msg.sender] = ownerRacehorseCount[msg.sender].sub(1);
     racehorseToOwner[_tokenId] = _to;
-    Transfer(_from, _to, _tokenId);
+    emit Transfer(_from, _to, _tokenId);
   }
 
   function transfer(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
@@ -32,7 +30,7 @@ contract RacehorseOwnership is RacehorseRacing, ERC721 {
 
   function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
     racehorseApprovals[_tokenId] = _to;
-    Approval(msg.sender, _to, _tokenId);
+    emit Approval(msg.sender, _to, _tokenId);
   }
 
   function takeOwnership(uint256 _tokenId) public {

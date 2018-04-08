@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
 import "./racehorsegrow.sol";
 
@@ -32,20 +32,16 @@ contract RacehorseHelper is RacehorseGrow {
     racehorses[_racehorseId].dna = _newDna;
   }
 
-  function changeDna(uint _racehorseId, uint growSkill, string _species) external aboveLevel(20, _racehorseId) onlyOwnerOf(_racehorseId) {
+  function changeDna(uint _racehorseId, uint8 growSkill, string _species) external aboveLevel(20, _racehorseId) onlyOwnerOf(_racehorseId) {
     Racehorse storage myRacehorse = racehorses[_racehorseId];
     require(_skillCheck(myRacehorse, growSkill));
-    uint sum = myRacehorse.dex + myRacehorse.str + myRacehorse.ada + myRacehorse.color + myRacehorse.mane + myRacehorse.eyes;
-    uint growSkill = sumTag - sum;
-
-
     if (keccak256(_species) == keccak256("last")) {
-      newDna = newDna - newDna % 10 + (newDna/10 + growSkill) % 10;
+      myRacehorse.dna = myRacehorse.dna - myRacehorse.dna % 10 + (myRacehorse.dna/10 + growSkill) % 10;
     }else if (keccak256(_species) == keccak256("lastsecond")) {
-      newDna = newDna - newDna % 100 + (newDna/100 + growSkill * 10) % 100;
+      myRacehorse.dna = myRacehorse.dna - myRacehorse.dna % 100 + (myRacehorse.dna/100 + growSkill * 10) % 100;
     }
-    myRacehorse.skill = _racehorse.skill - growSkill;
-    changeDna(_racehorseId, newDna);
+    myRacehorse.skill = myRacehorse.skill - growSkill;
+    changeDna(_racehorseId, myRacehorse.dna);
   }
 
   function getRacehorsesByOwner(address _owner) external view returns(uint[]) {

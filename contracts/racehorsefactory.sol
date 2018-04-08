@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
 import "./ownable.sol";
 import "./safemath.sol";
@@ -6,6 +6,7 @@ import "./safemath.sol";
 contract RacehorseFactory is Ownable {
   uint randNonce = 0;
   using SafeMath for uint256;
+  using SafeMath8 for uint8;
 
   event NewRacehorse(uint racehorseId, string name, uint dna);
 
@@ -25,7 +26,7 @@ contract RacehorseFactory is Ownable {
     uint8 skill;
     uint8 color;
     uint8 mane;
-    unit8 eyes;
+    uint8 eyes;
   }
 
   Racehorse[] public racehorses;
@@ -39,13 +40,13 @@ contract RacehorseFactory is Ownable {
   }
 
   function _createRacehorse(string _name, uint _dna) internal {
-    uint colorNum = randMod(16);
-    uint maneNum = randMod(16);
-    uint eyesNum = randMod(16);
+    uint8 colorNum = uint8(randMod(16));
+    uint8 maneNum = uint8(randMod(16));
+    uint8 eyesNum = uint8(randMod(16));
     uint id = racehorses.push(Racehorse(_name, _dna, 1, uint32(now + cooldownTime), 5, 5, 1, 0, 0, colorNum, maneNum, eyesNum)) - 1;
     racehorseToOwner[id] = msg.sender;
     ownerRacehorseCount[msg.sender]++;
-    NewRacehorse(id, _name, _dna);
+    emit NewRacehorse(id, _name, _dna);
   }
 
 

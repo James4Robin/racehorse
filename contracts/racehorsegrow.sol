@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
 import "./racehorsefactory.sol";
 
@@ -34,13 +34,13 @@ contract RacehorseGrow is RacehorseFactory {
     return (_racehorse.skill >= growSkill);
   }
 
-  function grow(uint _racehorseId, uint dex, uint str, uint apa, uint color, uint mane, uint eyes) external onlyOwnerOf(_racehorseId) {
+  function grow(uint _racehorseId, uint16 dex, uint16 str, uint16 ada, uint8 color, uint8 mane, uint8 eyes) external onlyOwnerOf(_racehorseId) {
     Racehorse storage myRacehorse = racehorses[_racehorseId];
-    uint sumTag = dex + str + apa + color + mane + eyes;
+    uint sumTag = dex + str + ada + color + mane + eyes;
     uint sum = myRacehorse.dex + myRacehorse.str + myRacehorse.ada + myRacehorse.color + myRacehorse.mane + myRacehorse.eyes;
     uint growSkill = sumTag - sum;
     require(_skillCheck(myRacehorse, growSkill));
-    myRacehorse.skill = myRacehorse.skill - growSkill;
+    myRacehorse.skill = uint8(myRacehorse.skill - growSkill);
     myRacehorse.dex = dex;
     myRacehorse.str = str;
     myRacehorse.ada = ada;
