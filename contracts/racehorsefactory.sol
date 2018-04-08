@@ -6,6 +6,7 @@ import "./safemath.sol";
 contract RacehorseFactory is Ownable {
   uint randNonce = 0;
   using SafeMath for uint256;
+  using SafeMath32 for uint32;
   using SafeMath8 for uint8;
 
   event NewRacehorse(uint racehorseId, string name, uint dna);

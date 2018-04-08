@@ -29,6 +29,7 @@ contract RacehorseGrow is RacehorseFactory {
     require(_isReady(myRacehorse));
     if(myRacehorse.exp + num >= 100){
         myRacehorse.exp = 0;
+        myRacehorse.level = myRacehorse.level.add(1);
         myRacehorse.skill = myRacehorse.skill.add(1);
     }else{
         myRacehorse.exp = myRacehorse.exp.add(num);

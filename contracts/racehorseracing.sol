@@ -17,17 +17,17 @@ contract RacehorseRacing is RacehorseHelper, RacetrackFactory {
     _racehorse.readyTime = uint32(now + raceCooldownTime);
   }
 
-  function racing(uint _racehorseId, uint8 _cphorses) external onlyOwnerOf(_racehorseId) playersCheck(_cphorses){
+  function racing(uint _racehorseId, uint8 _cphorses) external aboveLevel(5, _racehorseId) onlyOwnerOf(_racehorseId) playersCheck(_cphorses){
     Racehorse storage myRacehorse = racehorses[_racehorseId];
     uint sum = myRacehorse.dex  + myRacehorse.str + myRacehorse.ada;
     uint[] memory cphorsesNum = getCPs(sum, _cphorses);
     uint racetrackId = RacetrackFactory.getRondTrack();
     bool res = getRacingResult(_racehorseId,cphorsesNum, racetrackId);
     if(res){
-      myRacehorse.level++;
+      myRacehorse.level = myRacehorse.level.add(1);
       skillGrow(_racehorseId, _cphorses);
     }else{
-      expGrow(_racehorseId, 20);
+      expGrow(_racehorseId, _cphorses);
     }
     _triggerRaceCooldown(myRacehorse);
   }
