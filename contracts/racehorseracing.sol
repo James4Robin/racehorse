@@ -8,8 +8,8 @@ contract RacehorseRacing is RacehorseHelper, RacetrackFactory {
   uint attackVictoryProbability = 70;
 
   modifier playersCheck(uint num) {
-    require(num >= 2);
-    require(num <= 8);
+    require(num >= 1);
+    require(num <= 7);
     _;
   }
 

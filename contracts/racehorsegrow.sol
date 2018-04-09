@@ -54,6 +54,9 @@ contract RacehorseGrow is RacehorseFactory {
     uint sum = myRacehorse.dex + myRacehorse.str + myRacehorse.ada + myRacehorse.color + myRacehorse.mane + myRacehorse.eyes;
     uint growSkill = sumTag - sum;
     require(_skillCheck(myRacehorse, growSkill));
+    require(myRacehorse.dex <= dex);
+    require(myRacehorse.str <= str);
+    require(myRacehorse.ada <= ada);
     myRacehorse.skill = uint8(myRacehorse.skill - growSkill);
     myRacehorse.dex = dex;
     myRacehorse.str = str;
