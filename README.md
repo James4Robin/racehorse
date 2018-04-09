@@ -5,11 +5,12 @@ The project contains:
 2) Racehorse Smart Contracts for Games
 
 Current status as of 04/2018 is that The contract has basically been completed and finalized.
-Racehorse Smart Contracts is still debugging and improving.We still want to add some unique ideas to go in and make it look more interesting and appealing
+Racehorse Smart Contracts is still debugging and improving.We still want to add some unique ideas to go in and make it look more interesting and appealing.
+
 About the game content:
-1) This is a game of bred animals. It is your pet, partner, friend. A majestic Racehorse.
+1) This is a game of bred animals. It is your pet, partner, friend. A majestic racehorse.
 2) You will take care of it and make it grow.
-3) You will want your warhorse to contact its warhorse and come to a friendly match.
+3) You will want your racehorse to contact its racehorse and come to a friendly match.
 
 All contracts are properly documented, and main information for their usage can be found in the source code documentation.
 
@@ -36,7 +37,7 @@ Here we define all the attributes that a horse needs.
 ```
 We hope that such a definition can maximize the cost savings for users.
 Agile(dex), strong, and adaptability are the three attributes that are used to control the game.
-Color, mane, eyes are random attributes.Sometimes we don't write all random properties to dna. So we may be able to control them more flexibly
+Color, mane, eyes are random attributes.Sometimes we don't write all random properties to dna. So we may be able to control them more flexibly.
 
 Random number generation via keccak256
 The best source of randomness we have in Solidity is the keccak256 hash function.
@@ -57,7 +58,8 @@ It would then use keccak to convert these inputs to a random hash, convert that 
 
 Of course, we understand that this method is not absolutely safe.
 
-Since tens of thousands of Ethereum nodes on the network are competing to solve the next block, my odds of solving the next block are extremely low. It would take me a lot of time or computing resources to exploit this profitably — but if the reward were high enough (like if I could bet $100,000,000 on the coin flip function), it would be worth it for me to attack.
+Since tens of thousands of Ethereum nodes on the network are competing to solve the next block, my odds of solving the next block are extremely low. It would take me a lot of time or computing resources to exploit this profitably — but if the re
+d were high enough (like if I could bet $100,000,000 on the coin flip function), it would be worth it for me to attack.
 
 So while this random number generation is NOT secure on Ethereum, in practice unless our random function has a lot of money on the line, the users of your game likely won't have enough resources to attack it.
 
@@ -71,7 +73,7 @@ In "_createRacehorse" we initialize a horse, set some initial values and set som
     uint id = racehorses.push(Racehorse(_name, _dna, 1, uint32(now + feedCooldownTime), 5, 5, 1, 0, 0, colorNum, maneNum, eyesNum)) - 1;
 ```
 Of course, this method is internal. User needs to call another method "createRandomRacehorse".
-In method "createRandomRacehorse", we will judge the users, only those users who do not have a racehorse can complete the initialization war horse.
+In method "createRandomRacehorse", we will judge the users, only those users who do not have a racehorse can complete the initialization racehorse.
 
 Sources are located in [racehorsefactory.sol](contracts/racehorsefactory.sol).
 
