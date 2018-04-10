@@ -8,7 +8,7 @@ Current status as of 04/2018 is that The contract has basically been completed a
 Racehorse Smart Contracts is still debugging and improving.We still want to add some unique ideas to go in and make it look more interesting and appealing.
 
 About the game content:
-1) This is a game of bred animals. It is your pet, partner, friend. A majestic racehorse.
+1) This is a game of bred animals. It is your pet, partner and friend. A majestic racehorse.
 2) You will take care of it and make it grow.
 3) You will want your racehorse to contact its racehorse and come to a friendly match.
 
